@@ -1,0 +1,21 @@
+11/09/2025
+1. What is Moore's Law?
+2. What is ALU, CU, Memory, Secondary storage, input unit and o/p unit?
+3. What are Machine, Assembly, High Level Language?
+4. Similarity Between Machine & Assembly Level Language?
+5. How High Level Language is different from Machine & Assembly level language?
+6. What is a compiler and a Interpreter. What are the difference between them?
+7. Difference between File and Record?
+8. Definition of Database.
+9. Types of operating system? -> 1. Licensed 2. Open Source
+10. Why python is considered as a famous language?
+
+13/09/2025
+11. What is a statically typed language and what is a dynamically typed language?
+12. What is a strongly typed and a weakly typed language?
+13. Explain the different type of error? 
+	ZeroDivisionError, NameError, SyntaxError, ValueError
+14. What is an Escape Sequence?
+15. What is a Doc String? -> ''' or """
+	Note: \n is a character but not counted. 
+16. 
