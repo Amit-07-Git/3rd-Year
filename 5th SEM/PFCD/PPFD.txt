@@ -18,4 +18,15 @@
 14. What is an Escape Sequence?
 15. What is a Doc String? -> ''' or """
 	Note: \n is a character but not counted. 
-16. 
+
+20-09-2025
+16. What is an algorithm?
+17. What is a pseudo-code?
+18. Highlight the difference between an algorithm and pseudo-code?
+	x-> 5 algorithm
+	assign 5 to x pseudo-code
+19. Explain what is sequential execution statement(Flow Chart)? Support your answer with example.
+20. What is a selection statement? Support your answer with example.
+21. What are repetition statement? Support your answer with example.
+22. What is Indentation Error.
+23. Draw the flow chart to simulate the if statement.
