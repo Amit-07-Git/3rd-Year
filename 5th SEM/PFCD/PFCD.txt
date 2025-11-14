@@ -1,6 +1,6 @@
 11/09/2025
 1. What is Moore's Law?
-2. What is ALU, CU, Memory, Secondary storage, input unit and o/p unit?
+2. What is ALU, CU, Memory, Secondary storage, input unit and output unit?
 3. What are Machine, Assembly, High Level Language?
 4. Similarity Between Machine & Assembly Level Language?
 5. How High Level Language is different from Machine & Assembly level language?
@@ -20,8 +20,8 @@
 	Note: \n is a character but not counted. 
 
 20-09-2025
-16. What is an algorithm?
-17. What is a pseudo-code?
+16. What is an algorithm? Support your answer with an example
+17. What is a pseudo-code? Support your answer with an example
 18. Highlight the difference between an algorithm and pseudo-code?
 	x-> 5 algorithm
 	assign 5 to x pseudo-code
@@ -30,3 +30,19 @@
 21. What are repetition statement? Support your answer with example.
 22. What is Indentation Error.
 23. Draw the flow chart to simulate the if statement.
+
+24. What is a Keyword Argument?
+25. Highlight the difference between end and sep and their behaviour.
+26. What is an Augmented Assignment?
+27. Explain seqential execution statement. Support your answer with an example
+28. What is an iterabe & what is an terator?
+29. What is an Augmented Assignments?
+30. What are 3 phrases of execution?
+31. When a function is said to be shadowed?
+32. Explain the principle of least privilege?
+33. Define high order function. Define with an example.
+34. What is a lambda & anonymous function?
+35. WAPP to create 2D list of 4x5, filled with 0's using List Comprehension.
+36. WALC to that generates 600 random nos from 1-6.
+37. What is frozenset?
+38. Differentiate between shallow copy and deep copy.
