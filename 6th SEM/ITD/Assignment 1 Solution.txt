@@ -51,55 +51,55 @@ create table transaction_details (
 
 2.
 
-insert into branch values ('b001', 'main branch', 'delhi');
-insert into branch values ('b002', 'city branch', 'mumbai');
-insert into branch values ('b003', 'town branch', 'chennai');
-insert into branch values ('b004', 'central branch', 'delhi');
-insert into branch values ('b005', 'market branch', 'bengaluru');
+INSERT INTO branch (branch_code, branch_name, city) 
+VALUES
+('b001', 'main branch', 'delhi'),
+('b002', 'city branch', 'mumbai'),
+('b003', 'town branch', 'chennai'),
+('b004', 'central branch', 'delhi'),
+('b005', 'market branch', 'bengaluru');
 
 
 3.
 
-insert into customer values ('c001', 'ankit kumar', 'delhi', 9876543210);
-insert into customer values ('c002', 'anjali verma', 'mumbai', 9123456780);
-insert into customer values ('c003', 'suresh patel', 'ahmedabad', 9988776655);
-insert into customer values ('c004', 'neha sharma', 'jaipur', 9090909090);
-insert into customer values ('c005', 'amit singh', 'lucknow', 8899776655);
+INSERT INTO customer (cust_no, cust_name, address, phone) 
+VALUES
+('c001', 'ankit kumar', 'delhi', 9876543210),
+('c002', 'anjali verma', 'mumbai', 9123456780),
+('c003', 'suresh patel', 'ahmedabad', 9988776655),
+('c004', 'neha sharma', 'jaipur', 9090909090),
+('c005', 'amit singh', 'lucknow', 8899776655);
 
 
 4.
 
-insert into account values ('a1001', 'c001', 'b001', 'savings', 25000);
-insert into account values ('a1002', 'c002', 'b002', 'current', 40000);
-insert into account values ('a1003', 'c003', 'b003', 'savings', 18000);
-insert into account values ('a1004', 'c004', 'b004', 'savings', 32000);
-insert into account values ('a1005', 'c005', 'b005', 'current', 50000);
+INSERT INTO account (acc_no, cust_no, branch_code, acc_type, balance) 
+VALUES
+('a1001', 'c001', 'b001', 'savings', 25000),
+('a1002', 'c002', 'b002', 'current', 40000),
+('a1003', 'c003', 'b003', 'savings', 18000),
+('a1004', 'c004', 'b004', 'savings', 32000),
+('a1005', 'c005', 'b005', 'current', 50000);
 
 
 5.
 
-insert into loan values ('l2001', 'c001', 'b001', 150000);
-insert into loan values ('l2002', 'c002', 'b002', 200000);
-insert into loan values ('l2003', 'c003', 'b003', 120000);
-insert into loan values ('l2004', 'c004', 'b004', 180000);
-insert into loan values ('l2005', 'c005', 'b005', 250000);
+INSERT INTO loan (loan_no, cust_no, branch_code, amount) 
+VALUES
+('l2001', 'c001', 'b001', 150000),
+('l2002', 'c002', 'b002', 200000),
+('l2003', 'c003', 'b003', 120000),
+('l2004', 'c004', 'b004', 180000),
+('l2005', 'c005', 'b005', 250000);
 
 
 6.
 
-insert into transaction_details 
-values ('t001', 'a1001', 'deposit', 5000, to_date('2025-jan-10','yyyy-mon-dd'));
-
-insert into transaction_details 
-values ('t002', 'a1002', 'withdraw', 3000, to_date('2025-jan-12','yyyy-mon-dd'));
-
-insert into transaction_details 
-values ('t003', 'a1003', 'deposit', 7000, to_date('2025-oct-15','yyyy-mon-dd'));
-
-insert into transaction_details 
-values ('t004', 'a1004', 'withdraw', 2000, to_date('2024-jan-18','yyyy-mon-dd'));
-
-insert into transaction_details 
-values ('t005', 'a1005', 'deposit', 10000, to_date('2024-mar-20','yyyy-mon-dd'));
-
+INSERT INTO transaction_details (trans_id, acc_no, trans_type, trans_amount, trans_date) 
+VALUES
+('t001', 'a1001', 'deposit', 5000, '2025-01-10'),
+('t002', 'a1002', 'withdraw', 3000, '2025-01-12'),
+('t003', 'a1003', 'deposit', 7000, '2025-10-15'),
+('t004', 'a1004', 'withdraw', 2000, '2024-01-18'),
+('t005', 'a1005', 'deposit', 10000, '2024-03-20');
 
