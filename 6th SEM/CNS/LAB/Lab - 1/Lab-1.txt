@@ -1,0 +1,41 @@
+Router> enable
+	config t
+	interface gig0/0
+	ip address 192.168.10.1 255.255.255.0
+	no shutdown
+	exit
+	
+
+obj -1
+
+Go to Router, CLI
+
+username AMIT privilege 15 password amit
+line vty 0 4
+login local
+transport input telnet
+exit
+service password-encryption
+enable secret class
+
+Go to PC, THEN go to cmd
+telnet 192.168.10.1
+
+write corresponding username and password
+
+
+obj -2
+
+hostname R1
+ip domain-name ram.com
+crypto key generate rsa
+	Give the key size: 1024
+ip ssh version 2
+live vty 0 4
+transport input ssh
+login local
+exit
+
+GO to PC -> Desktop -> cmd
+Type: ssh -1 AMIT 192.16810.1
+Enter password: 
