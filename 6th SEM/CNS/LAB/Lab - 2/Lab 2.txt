@@ -1,0 +1,37 @@
+sExp-2
+
+Router 0
+enable
+config t
+interface gig0/0
+ip address 192.168.1.1 255.255.255.0
+no shutdown
+exit
+
+AAA Server
+Authentication-
+	To identify by providing username and password
+Authorization-
+	Level of access
+		15- Admin-Full access
+		0- monitoring
+		1- exec mode
+Accounting-
+	Track records
+		Login and Logout
+Using RADIUS PROTOCOL
+Go To Server0 
+	AAA 
+	Client Name: - R1
+	IP :-192.168.1.1
+	Secret: cisco
+	ServerType:- Radius 
+	
+	Username:- admin
+	Password:- cisco123
+	
+CLI Command Router0
+aaa new-model
+radius-server host 192.168.1.1 key cisco
+aaa authentication login default group radius local
+
