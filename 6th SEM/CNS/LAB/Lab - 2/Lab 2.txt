@@ -1,4 +1,7 @@
-sExp-2
+Exp-2
+
+Router 192.168.1
+
 
 Router 0
 enable
@@ -34,4 +37,23 @@ CLI Command Router0
 aaa new-model
 radius-server host 192.168.1.1 key cisco
 aaa authentication login default group radius local
+username backup privilege 15 secret backup123
+
+Go to PC > DESKTOP > CMD
+	ping to router as well as server
+	telnet 192.168.1.1
+	username:
+	password:
+	
+	
+ip domain-name lab.local
+hostname R1
+crypto key generate rsa
+key size:1024
+
+ip ssh version 2
+line vty 0 5
+transport input ssh
+login authentiation defult
+exit
 
