@@ -1,0 +1,52 @@
+Practice
+
+CREATE TABLE product (
+    product_id INT PRIMARY KEY,
+    product_name VARCHAR(50),
+    category VARCHAR(50),
+    brand VARCHAR(50),
+    price INT,
+    status VARCHAR(20),
+    description VARCHAR(100)
+);
+
+
+INSERT INTO product VALUES
+(101, 'iPhone 15', 'Smartphone', 'Apple', 79900, 'In Stock', 'Latest model'),
+(102, 'Galaxy S23', 'Smartphone', 'Samsung', 74999, 'In Stock', 'High-end Android'),
+(103, 'Yoga Slim 7', 'Laptop', 'Lenovo', 85000, 'Out of Stock', 'Ultra-thin'),
+(104, 'Airpods Pro', 'Audio', 'Apple', 24900, 'In Stock', 'Noise cancelling'),
+(105, 'Kindle Paper', 'E-Reader', 'Amazon', 13999, 'In Stock', NULL),
+(106, 'Pixel 8', 'Smartphone', 'Google', 75000, 'In Stock', 'Pure Android'),
+(107, 'MacBook Air', 'Laptop', 'Apple', 99900, 'In Stock', 'M2 Chip'),
+(108, 'Basic Mouse', 'Accessories', 'Logitech', 499, 'In Stock', NULL);
+
+
+UPDATE product
+SET description = 'reader'
+WHERE product_id = 105;
+
+
+UPDATE product
+SET category = 'Tablet'
+WHERE product_id = 103;
+
+
+SELECT product_name
+FROM product
+WHERE price > 25000;
+
+
+SELECT product_name, brand
+FROM product
+WHERE brand <> 'Apple';
+
+
+SELECT product_id, product_name
+FROM product
+WHERE price BETWEEN 50000 AND 80000;
+
+
+SELECT *
+FROM product
+WHERE status = 'In Stock';
