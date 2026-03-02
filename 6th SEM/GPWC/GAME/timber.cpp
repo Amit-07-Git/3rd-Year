@@ -1,4 +1,5 @@
 #include<SFML/Graphics.hpp>
+#include<sstream>
 using namespace sf;
 
 int main() {
@@ -50,6 +51,25 @@ int main() {
 
     Clock clock;
     bool paused = true;
+    
+    Font font;
+    font.loadFromFile("/home/iteradmin/Music/6th Semester/GDWC/GAME/Timber_prereq/fonts/KOMIKAP_.ttf");
+    Text messageText;
+    Text scoreText;
+    messageText.setFont(font);
+    scoreText.setFont(font);
+    messageText.setString("Press Enter to Start");
+    scoreText.setString("Score = 0");
+    messageText.setCharacterSize(75);
+    scoreText.setCharacterSize(100);
+    messageText.setFillColor(Color::White);
+    scoreText.setFillColor(Color::Red);
+    
+    FloatRect textRect = messageText.getLocalBounds();
+    messageText.setOrigin(textRect.left+textRect.width/2.0f, textRect.top + textRect.height/2.0f);
+    
+    messageText.setPosition(1920/2.0f, 1080/2.0f);
+    scoreText.setPosition(20,20);
 
     while (window.isOpen()) {
     //handle the players input
@@ -62,9 +82,14 @@ int main() {
         if (Keyboard::isKeyPressed(Keyboard::Escape)) {
             window.close();
         }
+        if (Keyboard::isKeyPressed(Keyboard::Return)) {
+            paused = false;
+        }
         
       //updates scene
         Time dt = clock.restart();
+        if(!paused){
+        
         if (!beeActive) {
             srand((int)time(0) * 10);
             beeSpeed = (rand() % 200) + 200;
@@ -115,6 +140,7 @@ int main() {
                 cloud3Active = false;
             }
         }
+        }
 
         // Draw scene
         window.clear();
@@ -127,6 +153,9 @@ int main() {
         window.draw(spriteCloud3);
         
         window.draw(spriteBee);
+        
+        window.draw(messageText);
+        window.draw(scoreText);
         
         window.display();
         window.setView(view);
