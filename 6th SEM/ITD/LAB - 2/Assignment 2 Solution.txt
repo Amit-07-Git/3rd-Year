@@ -1,0 +1,99 @@
+1.
+
+a)
+desc customer;
+desc account;
+desc branch;
+desc transaction_details;
+desc loan;
+
+b)
+select * from customer;
+select * from account;
+select * from branch;
+select * from transaction_details;
+select * from loan;
+
+c)
+select cust_no, branch_code
+from account;
+
+d)
+select cust_no, balance
+from account
+where account_type = 'savings';
+
+e)
+select acc_no, trans_id
+from transaction_details
+where trans_type = 'deposit'
+and amount > 5000;
+
+f)
+select *
+from loan
+where loan_amount < 200000;
+
+g)
+select cust_no
+from account
+where account_type <> 'savings';
+
+h)
+select distinct city
+from branch;
+
+i)
+select acc_no
+from transaction_details
+where trans_date between '2025-01-01' and '2025-01-31';
+
+j)
+select acc_no
+from account
+where balance <> 32000;
+
+k)
+select *
+from account
+order by balance desc;
+
+l)
+alter table customer
+add email varchar(50);
+
+m)
+update customer
+set email = 'abc@gmail.com'
+where cust_no = 1;
+
+update customer
+set email = 'xyz@gmail.com'
+where cust_no = 2;
+
+n)
+alter table branch
+rename column city to location;
+
+o)
+alter table transaction_details
+rename to bank_transaction;
+
+p)
+alter table account
+rename column acc_no to account_no;
+
+q)
+alter table customer
+modify cust_name varchar(50);
+
+r)
+alter table account
+rename to customer_account;
+
+s)
+alter table branch
+modify branch_name varchar(40);
+
+t)
+truncate table bank_transaction;
