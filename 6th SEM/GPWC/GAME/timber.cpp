@@ -16,11 +16,13 @@ int main() {
     Texture texturetree;
     Texture texturebee;
     Texture texturecloud;
+    Texture textureplayer;
 
     texturebackground.loadFromFile("/home/iteradmin/Music/6th Semester/GDWC/GAME/Timber_prereq/graphics/background.png");
     texturetree.loadFromFile("/home/iteradmin/Music/6th Semester/GDWC/GAME/Timber_prereq/graphics/tree.png");
     texturebee.loadFromFile("/home/iteradmin/Music/6th Semester/GDWC/GAME/Timber_prereq/graphics/bee.png");
     texturecloud.loadFromFile("/home/iteradmin/Music/6th Semester/GDWC/GAME/Timber_prereq/graphics/cloud.png");
+    textureplayer.loadFromFile("/home/iteradmin/Music/6th Semester/GDWC/GAME/Timber_prereq/graphics/player.png");
 
     Sprite spriteBackground;
     spriteBackground.setTexture(texturebackground);
@@ -53,6 +55,10 @@ int main() {
     spriteCloud3.setPosition(0, 500);
     bool cloud3Active = false;
     float cloud3Speed = 0.0f;
+    
+    Sprite spritePlayer;
+    spritePlayer.setTexture(textureplayer);
+    spritePlayer.setPosition(580,720);
 
     Clock clock;
     bool paused = true;
@@ -218,6 +224,8 @@ int main() {
         window.draw(scoreText);
         
         window.draw(timebar);
+        
+        window.draw(spritePlayer);
         
         for(int i = 0; i <NUMBER_BRANCHES; i++){
           window.draw(branches[i]);
