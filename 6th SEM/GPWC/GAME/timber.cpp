@@ -1,6 +1,11 @@
 #include<SFML/Graphics.hpp>
 #include<sstream>
 using namespace sf;
+void updateBranches(int seed);
+const int NUMBER_BRANCHES = 6;
+Sprite branches[NUMBER_BRANCHES];
+enum class side{LEFT,RIGHT,NONE};
+side branchPositions[NUMBER_BRANCHES];
 
 int main() {
     VideoMode vm(1920, 1080);
@@ -70,9 +75,30 @@ int main() {
     
     messageText.setPosition(1920/2.0f, 1080/2.0f);
     scoreText.setPosition(20,20);
+    
+    int score = 0; 
+    
+    RectangleShape timebar;
+    float timebarstartwidth = 400;
+    float timebarheight = 80;
+    timebar.setSize(Vector2f(timebarstartwidth,timebarheight));
+    timebar.setFillColor(Color::Green);
+    timebar.setPosition(1920/2 - timebarstartwidth/2, 980);
+    
+    Time gametimetotal;
+    float timeremaining = 6.0f;
+    float timebarstartwidthpersecond = timebarstartwidth/timeremaining;
+    
+    Texture textureBranch;
+    textureBranch.loadFromFile("/home/iteradmin/Music/6th Semester/GDWC/GAME/Timber_prereq/graphics/branch.png");
+    for(int i = 0; i <NUMBER_BRANCHES; i++){
+      branches[i].setTexture(textureBranch);
+      branches[i].setPosition(-2000, -2000);
+      branches[i].setOrigin(220,40);
+    }
 
     while (window.isOpen()) {
-    //handle the players input
+    //handling the players input
         Event event;
         while (window.pollEvent(event)) {
             if (event.type == Event::Closed) {
@@ -83,12 +109,28 @@ int main() {
             window.close();
         }
         if (Keyboard::isKeyPressed(Keyboard::Return)) {
+            timeremaining = 6.0f;
             paused = false;
         }
         
       //updates scene
-        Time dt = clock.restart();
+        
         if(!paused){
+          Time dt = clock.restart();
+          updateBranches(1);
+          updateBranches(2);
+          updateBranches(3);
+          updateBranches(4);
+          updateBranches(5);
+          timeremaining -= dt.asSeconds();
+          timebar.setSize(Vector2f(timebarstartwidthpersecond*timeremaining, timebarheight));
+        if (timeremaining<=0.0f){
+          paused=true;
+          messageText.setString("Out of Time!");
+          FloatRect textRect = messageText.getLocalBounds();
+          messageText.setOrigin(textRect.left+textRect.width/2.0f,textRect.top+textRect.height/2.0f);
+          messageText.setPosition(1920/2.0f,1080/2.0f);
+        }
         
         if (!beeActive) {
             srand((int)time(0) * 10);
@@ -140,6 +182,24 @@ int main() {
                 cloud3Active = false;
             }
         }
+        
+        std::stringstream ss;
+        ss<<"Score="<<score;
+        scoreText.setString(ss.str());
+        
+        for(int i = 0; i <NUMBER_BRANCHES; i++){
+          float height = i*150;
+          if(branchPositions[i] == side::LEFT){
+            branches[i].setPosition(610,height);
+            branches[i].setRotation(180);
+          } else if(branchPositions[i] == side::RIGHT){
+            branches[i].setPosition(1330,height);
+            branches[i].setRotation(0);
+          } else {
+            branches[i].setPosition(3000,height);
+          }
+        }
+        
         }
 
         // Draw scene
@@ -157,8 +217,34 @@ int main() {
         window.draw(messageText);
         window.draw(scoreText);
         
+        window.draw(timebar);
+        
+        for(int i = 0; i <NUMBER_BRANCHES; i++){
+          window.draw(branches[i]);
+        }
+        
         window.display();
         window.setView(view);
     }
+    
     return 0;
+}
+
+void updateBranches(int seed){
+  for(int j = NUMBER_BRANCHES-1; j>0; j--){
+    branchPositions[j] = branchPositions[j-1];
+  }
+  srand((int)time(0)+seed);
+  int r = (rand()%5);
+  switch(r){
+    case 0:
+      branchPositions[0] = side::LEFT;
+      break;
+    case 1:
+      branchPositions[1] = side::RIGHT;
+      break;
+    default:
+      branchPositions[2] = side::NONE;
+      break;
+  }
 }
