@@ -1,6 +1,8 @@
 #include<SFML/Graphics.hpp>
+#include<SFML/Audio.hpp>
 #include<sstream>
 using namespace sf;
+
 void updateBranches(int seed);
 const int NUMBER_BRANCHES = 6;
 Sprite branches[NUMBER_BRANCHES];
@@ -17,12 +19,18 @@ int main() {
     Texture texturebee;
     Texture texturecloud;
     Texture textureplayer;
+    Texture texturerip;
+    Texture textureaxe;
+    Texture texturelog;
 
     texturebackground.loadFromFile("/home/iteradmin/Music/6th Semester/GDWC/GAME/Timber_prereq/graphics/background.png");
     texturetree.loadFromFile("/home/iteradmin/Music/6th Semester/GDWC/GAME/Timber_prereq/graphics/tree.png");
     texturebee.loadFromFile("/home/iteradmin/Music/6th Semester/GDWC/GAME/Timber_prereq/graphics/bee.png");
     texturecloud.loadFromFile("/home/iteradmin/Music/6th Semester/GDWC/GAME/Timber_prereq/graphics/cloud.png");
     textureplayer.loadFromFile("/home/iteradmin/Music/6th Semester/GDWC/GAME/Timber_prereq/graphics/player.png");
+    texturerip.loadFromFile("/home/iteradmin/Music/6th Semester/GDWC/GAME/Timber_prereq/graphics/rip.png");
+    textureaxe.loadFromFile("/home/iteradmin/Music/6th Semester/GDWC/GAME/Timber_prereq/graphics/axe.png");
+    texturelog.loadFromFile("/home/iteradmin/Music/6th Semester/GDWC/GAME/Timber_prereq/graphics/log.png");
 
     Sprite spriteBackground;
     spriteBackground.setTexture(texturebackground);
@@ -59,6 +67,21 @@ int main() {
     Sprite spritePlayer;
     spritePlayer.setTexture(textureplayer);
     spritePlayer.setPosition(580,720);
+    side playside = side::LEFT;
+    
+    Sprite spriteRIP;
+    spriteRIP.setTexture(texturerip);
+    spriteRIP.setPosition(600,860);
+    
+    Sprite spriteLog;
+    spriteLog.setTexture(texturelog);
+    spriteLog.setPosition(810,720);
+    
+    Sprite spriteAxe;
+    spriteAxe.setTexture(textureaxe);
+    spriteAxe.setPosition(700,830);
+    const float AXE_POSITION_LEFT = 700;
+    const float AXE_POSITION_RIGHT = 1075;
 
     Clock clock;
     bool paused = true;
@@ -103,12 +126,36 @@ int main() {
       branches[i].setOrigin(220,40);
     }
 
+    bool logActive = false;
+    float logSpeedX = 1000;
+    float logSpeedY = -1500;
+    bool acceptInput = false;
+    
+    SoundBuffer chopBuffer;
+    chopBuffer.loadFromFile("/home/iteradmin/Music/6th Semester/GDWC/GAME/Timber_prereq/sound/chop.wav");
+    Sound chop;
+    chop.setBuffer(chopBuffer);
+    
+    SoundBuffer deathBuffer;
+    deathBuffer.loadFromFile("/home/iteradmin/Music/6th Semester/GDWC/GAME/Timber_prereq/sound/death.wav");
+    Sound death;
+    death.setBuffer(deathBuffer);
+    
+    SoundBuffer ootBuffer;
+    ootBuffer.loadFromFile("/home/iteradmin/Music/6th Semester/GDWC/GAME/Timber_prereq/sound/out_of_time.wav");
+    Sound oot;
+    oot.setBuffer(ootBuffer);
+    
     while (window.isOpen()) {
-    //handling the players input
+    //Handling the player input
         Event event;
         while (window.pollEvent(event)) {
             if (event.type == Event::Closed) {
                 window.close();
+            }
+            if (event.type == Event::KeyReleased && !paused) {
+                acceptInput = true;
+                spriteAxe.setPosition(2000, spriteAxe.getPosition().y);
             }
         }
         if (Keyboard::isKeyPressed(Keyboard::Escape)) {
@@ -117,17 +164,46 @@ int main() {
         if (Keyboard::isKeyPressed(Keyboard::Return)) {
             timeremaining = 6.0f;
             paused = false;
+            score = 0;
+            for(int i = 0; i< NUMBER_BRANCHES;i++){
+              branchPositions[i] = side::NONE;
+            }
+            spriteRIP.setPosition(675,2000);
+            spritePlayer.setPosition(580,720);
+            spriteAxe.setPosition(700,830);
+            acceptInput = true;
         }
-        
-      //updates scene
+        if(acceptInput){
+          if(Keyboard::isKeyPressed(Keyboard::Right)){
+            playside = side::RIGHT;
+            score++;
+            timeremaining+=(2.0f/score)+.15f;
+            spritePlayer.setPosition(1200,720);
+            spriteAxe.setPosition(AXE_POSITION_RIGHT, spriteAxe.getPosition().y);
+            updateBranches(score);
+            spriteLog.setPosition(810,720);
+            logSpeedX = -2500;
+            logActive = true;
+            acceptInput = false;
+            chop.play();
+          }
+          if(Keyboard::isKeyPressed(Keyboard::Left)){
+            playside = side::LEFT;
+            score++;
+            timeremaining+=(2.0f/score)+.15f;
+            spritePlayer.setPosition(580,720);
+            spriteAxe.setPosition(AXE_POSITION_LEFT, spriteAxe.getPosition().y);
+            updateBranches(score);
+            spriteLog.setPosition(810,720);
+            logSpeedX = 2500;
+            logActive = true;
+            acceptInput = false;
+            chop.play();
+          }
+        }
         
         if(!paused){
           Time dt = clock.restart();
-          updateBranches(1);
-          updateBranches(2);
-          updateBranches(3);
-          updateBranches(4);
-          updateBranches(5);
           timeremaining -= dt.asSeconds();
           timebar.setSize(Vector2f(timebarstartwidthpersecond*timeremaining, timebarheight));
         if (timeremaining<=0.0f){
@@ -136,6 +212,7 @@ int main() {
           FloatRect textRect = messageText.getLocalBounds();
           messageText.setOrigin(textRect.left+textRect.width/2.0f,textRect.top+textRect.height/2.0f);
           messageText.setPosition(1920/2.0f,1080/2.0f);
+          oot.play();
         }
         
         if (!beeActive) {
@@ -206,35 +283,53 @@ int main() {
           }
         }
         
+        
+        if(logActive){
+          spriteLog.setPosition(spriteLog.getPosition().x + (logSpeedX * dt.asSeconds()),
+          spriteLog.getPosition().y + (logSpeedY * dt.asSeconds()));       
+          if(spriteLog.getPosition().x < -100 || spriteLog.getPosition().x > 2000){
+            logActive = false;
+            spriteLog.setPosition(810,720);
+          }
+        }
+        if(branchPositions[5] == playside){
+          //death
+          paused = true;
+          acceptInput = false;
+          spriteRIP.setPosition(525,760);
+          spritePlayer.setPosition(2000,660);
+          spriteAxe.setPosition(2000,660);
+          messageText.setString("SQUASHED!");
+          FloatRect textRect = messageText.getLocalBounds();
+          messageText.setOrigin(textRect.left + textRect.width / 2.0f, textRect.top + textRect.height / 2.0f);
+          messageText.setPosition(1920 / 2.0f, 1080 / 2.0f);
+          death.play();
+        }
+        
         }
 
-        // Draw scene
         window.clear();
         window.draw(spriteBackground);
-        
         window.draw(spriteTree);
-        
         window.draw(spriteCloud1);
         window.draw(spriteCloud2);
         window.draw(spriteCloud3);
-        
         window.draw(spriteBee);
-        
-        window.draw(messageText);
         window.draw(scoreText);
-        
         window.draw(timebar);
-        
         window.draw(spritePlayer);
-        
+        window.draw(spriteLog);
+        window.draw(spriteAxe);
+        window.draw(spriteRIP);
         for(int i = 0; i <NUMBER_BRANCHES; i++){
           window.draw(branches[i]);
         }
-        
+        if(paused) {
+            window.draw(messageText);
+        }
         window.display();
         window.setView(view);
     }
-    
     return 0;
 }
 
@@ -249,10 +344,10 @@ void updateBranches(int seed){
       branchPositions[0] = side::LEFT;
       break;
     case 1:
-      branchPositions[1] = side::RIGHT;
+      branchPositions[0] = side::RIGHT;
       break;
     default:
-      branchPositions[2] = side::NONE;
+      branchPositions[0] = side::NONE;
       break;
   }
 }
