@@ -1,3 +1,5 @@
+////g++ timber.cpp -o tim -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio
+
 #include<SFML/Graphics.hpp>
 #include<SFML/Audio.hpp>
 #include<sstream>
