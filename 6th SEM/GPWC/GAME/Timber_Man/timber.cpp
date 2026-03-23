@@ -23,14 +23,14 @@ int main() {
     Texture textureaxe;
     Texture texturelog;
 
-    texturebackground.loadFromFile("/home/iteradmin/Music/6th Semester/GDWC/GAME/Timber_Man/graphics/background.png");
-    texturetree.loadFromFile("/home/iteradmin/Music/6th Semester/GDWC/GAME/Timber_Man/graphics/tree.png");
-    texturebee.loadFromFile("/home/iteradmin/Music/6th Semester/GDWC/GAME/Timber_Mangraphics/bee.png");
-    texturecloud.loadFromFile("/home/iteradmin/Music/6th Semester/GDWC/GAME/Timber_Man/graphics/cloud.png");
-    textureplayer.loadFromFile("/home/iteradmin/Music/6th Semester/GDWC/GAME/Timber_Man/graphics/player.png");
-    texturerip.loadFromFile("/home/iteradmin/Music/6th Semester/GDWC/GAME/Timber_Man/graphics/rip.png");
-    textureaxe.loadFromFile("/home/iteradmin/Music/6th Semester/GDWC/GAME/Timber_Man/graphics/axe.png");
-    texturelog.loadFromFile("/home/iteradmin/Music/6th Semester/GDWC/GAME/Timber_Man/graphics/log.png");
+    texturebackground.loadFromFile("/home/iteradmin/Music/6th Semester/GPWC/GAME/Timber_Man/graphics/background.png");
+    texturetree.loadFromFile("/home/iteradmin/Music/6th Semester/GPWC/GAME/Timber_Man/graphics/tree.png");
+    texturebee.loadFromFile("/home/iteradmin/Music/6th Semester/GPWC/GAME/Timber_Mangraphics/bee.png");
+    texturecloud.loadFromFile("/home/iteradmin/Music/6th Semester/GPWC/GAME/Timber_Man/graphics/cloud.png");
+    textureplayer.loadFromFile("/home/iteradmin/Music/6th Semester/GPWC/GAME/Timber_Man/graphics/player.png");
+    texturerip.loadFromFile("/home/iteradmin/Music/6th Semester/GPWC/GAME/Timber_Man/graphics/rip.png");
+    textureaxe.loadFromFile("/home/iteradmin/Music/6th Semester/GPWC/GAME/Timber_Man/graphics/axe.png");
+    texturelog.loadFromFile("/home/iteradmin/Music/6th Semester/GPWC/GAME/Timber_Man/graphics/log.png");
 
     Sprite spriteBackground;
     spriteBackground.setTexture(texturebackground);
@@ -119,7 +119,7 @@ int main() {
     float timebarstartwidthpersecond = timebarstartwidth/timeremaining;
     
     Texture textureBranch;
-    textureBranch.loadFromFile("/home/iteradmin/Music/6th Semester/GDWC/GAME/Timber_Man/graphics/branch.png");
+    textureBranch.loadFromFile("/home/iteradmin/Music/6th Semester/GPWC/GAME/Timber_Man/graphics/branch.png");
     for(int i = 0; i <NUMBER_BRANCHES; i++){
       branches[i].setTexture(textureBranch);
       branches[i].setPosition(-2000, -2000);
@@ -132,17 +132,17 @@ int main() {
     bool acceptInput = false;
     
     SoundBuffer chopBuffer;
-    chopBuffer.loadFromFile("/home/iteradmin/Music/6th Semester/GDWC/GAME/Timber_Man/sound/chop.wav");
+    chopBuffer.loadFromFile("/home/iteradmin/Music/6th Semester/GPWC/GAME/Timber_Man/sound/chop.wav");
     Sound chop;
     chop.setBuffer(chopBuffer);
     
     SoundBuffer deathBuffer;
-    deathBuffer.loadFromFile("/home/iteradmin/Music/6th Semester/GDWC/GAME/Timber_Man/sound/death.wav");
+    deathBuffer.loadFromFile("/home/iteradmin/Music/6th Semester/GPWC/GAME/Timber_Man/sound/death.wav");
     Sound death;
     death.setBuffer(deathBuffer);
     
     SoundBuffer ootBuffer;
-    ootBuffer.loadFromFile("/home/iteradmin/Music/6th Semester/GDWC/GAME/Timber_Man/sound/out_of_time.wav");
+    ootBuffer.loadFromFile("/home/iteradmin/Music/6th Semester/GPWC/GAME/Timber_Man/sound/out_of_time.wav");
     Sound oot;
     oot.setBuffer(ootBuffer);
     
@@ -358,4 +358,3 @@ void updateBranches(int seed){
       break;
   }
 }
-
