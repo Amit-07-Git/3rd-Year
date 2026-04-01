@@ -52,7 +52,10 @@ int main() {
         if (Keyboard::isKeyPressed(Keyboard::Escape))
             window.close();
 
-
+        std::stringstream ss; 
+        ss << "Score: " << score << "  Lives: " << lives;
+        hud.setString(ss.str());
+        
         ball.update(dt);
         bat.update(dt, window.getSize().x);
         if(ball.getPosition().left < 0 || 
@@ -64,11 +67,21 @@ int main() {
             score++;
         }
         
-        std::stringstream ss; 
-        ss << "Score: " << score << "  Lives: " << lives;
-        hud.setString(ss.str());
+        if (ball.getPosition().top>window.getSize().y){
+          ball.reboundBottom();
+          lives--;
+          if (lives<1){
+            ss << "GameOver";
+            hud.setString(ss.str());
+            window.close();
+          }
+        }
+        
+        if(ball.getPosition().intersects(bat.getPosition())){
+          ball.reboundBatOrTop();
+        }
 
-        window.clear();
+        window.clear(Color::Black);
         window.draw(ball.getShape());
         window.draw(bat.getShape());
         window.draw(hud);
