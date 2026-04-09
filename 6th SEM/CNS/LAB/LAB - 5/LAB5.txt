@@ -1,0 +1,30 @@
+def print_table(table, cols):
+    for i in range(0, len(table), cols):
+        print(" ".join(f"{num:02d}" for num in table[i:i+cols]))
+
+def initial_permutation():
+    table = []
+    row_starts = [58, 60, 62, 64, 57, 59, 61, 63]
+    for i in row_starts:
+        for j in range(8):
+            table.append(i - (j * 8))
+    return table
+
+def get_expansion_table():
+    starts = [32, 4, 8, 12, 16, 20, 24, 28]
+    table = []
+    for i in starts:      
+        for j in range(6):    
+            val = i + j      
+            if val > 32: 
+                val = val - 32
+            table.append(val)
+    return table
+
+print("Initial Permutation (IP):\n")
+ip = initial_permutation()
+print_table(ip, 8)
+
+print("\nExpansion Table (E):\n")
+e_table = expansion_table()
+print_table(e_table, 6)
