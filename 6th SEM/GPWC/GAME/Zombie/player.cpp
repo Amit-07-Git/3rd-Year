@@ -49,7 +49,7 @@ Player::Player(){
   m_Speed = START_SPEED;
   m_Health = START_HEALTH;
   m_MaxHealth = START_HEALTH;
-  m_Texture.loadFromFile("/home/iteradmin/Music/6th Semester/GPWC/GAME/Zombie/ZombieAssets/graphics/player.png");
+  m_Texture.loadFromFile("/home/iteradmin/Music/23412K1 6th Sem/ZombieAssets/graphics/player.png");
   m_Sprite.setTexture(m_Texture);
   m_Sprite.setOrigin(25,25);
   m_Sprite.SetPosition(1920/2.0f, 1080/2.0f);
@@ -140,9 +140,34 @@ void Player::update(float elapsedTime, Vector2i mousePosition){
   m_Sprite.setPosition(m_Position);
   
   if(m_Position.x > m_Arena.width - m_TileSize){
-    
+    m_Position.x = m_Arena.width - m_TileSize;
+  }
+  if(m_Position.x < m_Arena.left + m_TileSize){
+    m_Position.x = m_Arena.left + m_TileSize;
+  }
+  if(m_Position.y > m_Arena.height - m_TileSize){
+    m_Position.y = m_Arena.height - m_TileSize;
+  }
+  if(m_Position.y < m_Arena.top + m_TileSize){
+    m_Position.y = m_Arena.top + m_TileSize;
+  }
+  Vector2i playerScreenPosition = window.mapCoordsToPixel(m_Position);
+  float angle = (atan2(mousePosition.y - playerScreenPosition.y, mousePosition.x - playerScreenPosition.x)*180)/3.141;
+  m_sprite.setRotation(angle);
+}
+void Player::upgradeSpeed(){
+  m_Speed += (START_SPEED*.2);
+}
+void Player::upgradeHealth(){
+  m_Health += (START_HEALTH*.2);
+}
+void Player::increaseHealthLevel(int amount){
+  m_Health += amount;
+  if(m_Health > m_MaxHealth){
+    m_Health = m_MaxHealth;
   }
 }
+
 
 int main(){
 
